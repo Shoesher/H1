@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horse Racing Elo Rankings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1rem;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #ff9100;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Horse Racing Elo Rankings</h1>
+    <div class="container">
+        <textarea id="raceResults" placeholder="Enter race results in order (one name per line)"></textarea>
+        <button onclick="updateElo()">Submit Race Result</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard"></tbody>
+        </table>
+    </div>
+    <script>
+        class EloRanker {
+            constructor(kFactor = 10, initialRating = 1000) {
+                this.kFactor = kFactor;
+                this.players = new Map();
+                this.initialRating = initialRating;
+            }
+
+            getRating(player) {
+                if (!this.players.has(player)) {
+                    this.players.set(player, this.initialRating);
+                }
+                return this.players.get(player);
+            }
+
+            // expectedScore(ratingA, ratingB) {
+            //     return 1 / (1 + Math.pow(10, (ratingB - ratingA) / 400));
+            // }
+
+            updateRatings(raceResults) {
+                let numPlayers = raceResults.length;
+                let kFactors = [50, 30, 20]; // Elo gains for 1st, 2nd, 3rd
+
+                raceResults.forEach((player, index) => {
+                    let rating = this.getRating(player);
+                    let expectedTotal = 0;
+                    
+                    // raceResults.forEach((opponent, j) => {
+                    //     if (index !== j) {
+                    //         expectedTotal += this.expectedScore(rating, this.getRating(opponent));
+                    //     }
+                    // });
+                    
+                    let actualScore = index < 3 ? 1 - (index * 0.3) : 0;
+                    let k = index < 3 ? kFactors[index] : -10; // Top 3 gain, others lose
+                    let newRating = rating + k * (actualScore - expectedTotal / (numPlayers - 1));
+                    
+                    this.players.set(player, Math.round(newRating));
+                });
+            }
+
+            getLeaderboard() {
+                return [...this.players.entries()]
+                    .sort((a, b) => b[1] - a[1])
+                    .map((entry, index) => ({ rank: index + 1, player: entry[0], rating: entry[1] }));
+            }
+        }
+
+        const elo = new EloRanker();
+
+        function updateElo() {
+            let input = document.getElementById('raceResults').value.trim();
+            if (!input) return;
+            
+            let raceResults = input.split('\n').map(name => name.trim()).filter(name => name);
+            if (raceResults.length < 2) return;
+            
+            elo.updateRatings(raceResults);
+            displayLeaderboard();
+            document.getElementById('raceResults').value = '';
+        }
+
+        function displayLeaderboard() {
+            let leaderboard = document.getElementById('leaderboard');
+            leaderboard.innerHTML = '';
+            elo.getLeaderboard().forEach(player => {
+                leaderboard.innerHTML += `<tr>
+                    <td>${player.rank}</td>
+                    <td>${player.player}</td>
+                    <td>${player.rating}</td>
+                </tr>`;
+            });
+        }
+    </script>
+</body>
+</html>

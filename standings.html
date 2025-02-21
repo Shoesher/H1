@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H1 - Standings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #121212;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f39e3c;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #f39e3c;
+        }
+
+        .banner-section {
+            width: 100%;
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            background: url('Standingbanner.webp') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .banner h1 {
+            font-size: 5rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #38dab7be;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 0;
+        }
+
+        td {
+            border-radius: 10px;
+        }
+
+        tbody tr {
+            background: #292929;
+            transition: transform 0.2s;
+        }
+
+        tbody tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #1e1e1e;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            font-size: 1rem;
+            color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <section class="banner-section">
+        <div class="banner">
+            <h1>Standings</h1>
+        </div>
+    </section>
+
+    <h1>Horse Racing Elo Rankings</h1>
+
+    <header>
+        <nav>
+            <div class="logo">H1 Racing</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="standings.html">Standings</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="#">Updates</a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeQgfTR211I-X22K01ioONuH6vWYSZyMXpiQ37IbJe_pEocQQ/viewform?usp=header  q">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Team</th>
+                        <th>Wins</th>
+                        <th>Championships</th>
+                        <th>Elo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Ppiouyt</td><td>Gamer</td><td>5</td><td>1</td><td>1179</td></tr>
+                    <tr><td>2</td><td>NeopolitanStars</td><td>Balls</td><td>0</td><td>0</td><td>1136</td></tr>
+                    <tr><td>3</td><td>Timwha</td><td>Balls</td><td>3</td><td>0</td><td>1125</td></tr>
+                    <tr><td>4</td><td>LittleHan</td><td>BBL Sigmas</td><td>1</td><td>1</td><td>1058</td></tr>
+                    <tr><td>5</td><td>DiaNeedsALife</td><td>EH Racing</td><td>0</td><td>0</td><td>1016</td></tr>
+                    <tr><td>6</td><td>Pocketsnack</td><td>EH Racing</td><td>0</td><td>0</td><td>1005</td></tr>
+                    <tr><td>7</td><td>Shoesher</td><td>BBL Sigmas</td><td>0</td><td>0</td><td>992</td></tr>
+                    <tr><td>8</td><td>Stevie-2</td><td>Gamer</td><td>0</td><td>0</td><td>965</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
+    <br><br><br>
+
+    <footer>
+        <p>&copy; 2025 H1 Racing. All rights reserved.</p>
+    </footer>
+</body>
+</html>
